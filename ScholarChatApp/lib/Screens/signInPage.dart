@@ -1,8 +1,7 @@
+import 'package:ScholarChatApp/Forms/SingInForm.dart';
 import 'package:flutter/material.dart';
 
-import './SingUpForm.dart';
-
-class SignUpPage extends StatelessWidget {
+class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context).size.height;
@@ -13,7 +12,7 @@ class SignUpPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 70),
+              padding: const EdgeInsets.only(top: 100),
               child: Column(
                 children: [
                   Image.asset(
@@ -34,9 +33,9 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
               width: double.infinity,
-              child: SignUpForm(),
+              child: SignInForm(),
             ),
           ],
         ),

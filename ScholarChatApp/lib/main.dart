@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './signInPage.dart';
-import './signupPage.dart';
+import 'Screens/signInPage.dart';
+import 'Screens/signupPage.dart';
 
 main(List<String> args) {
   runApp(ScholarChatApp());
