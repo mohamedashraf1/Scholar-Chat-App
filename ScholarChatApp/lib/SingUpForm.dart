@@ -50,7 +50,7 @@ class _SignUpFormState extends State<SignUpForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Sign In",
+            "Sign Up",
             style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 30,
@@ -62,8 +62,7 @@ class _SignUpFormState extends State<SignUpForm> {
           TextFormField(
             decoration: decorate("Name"),
             style: TextStyle(color: Theme.of(context).primaryColor),
-            validator: (value) =>
-                value == null ? "You must enter a name" : null,
+            validator: (value) => value == "" ? "You must enter a name" : null,
             controller: _nameController,
           ),
           const SizedBox(
@@ -107,6 +106,31 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "already have an account ?",
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                GestureDetector(
+                  child: Text(
+                    "Sing In",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

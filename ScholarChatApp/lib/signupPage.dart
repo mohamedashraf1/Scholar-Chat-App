@@ -13,7 +13,7 @@ class SignUpPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 100),
+              padding: const EdgeInsets.only(top: 70),
               child: Column(
                 children: [
                   Image.asset(
@@ -34,7 +34,7 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
               width: double.infinity,
               child: SignUpForm(),
             ),

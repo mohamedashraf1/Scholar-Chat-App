@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './signupPage.dart';
+import './SingUpForm.dart';
 
 class SignInForm extends StatefulWidget {
   @override
@@ -117,8 +118,7 @@ class _SignInFormState extends State<SignInForm> {
                     ),
                   ),
                   onTap: () {
-                    print("hi");
-                    SignUpPage();
+                    Navigator.pushNamed(context, '/second');
                   },
                 ),
               ],
