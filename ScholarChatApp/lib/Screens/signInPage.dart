@@ -1,5 +1,6 @@
-import 'package:ScholarChatApp/Forms/SingInForm.dart';
 import 'package:flutter/material.dart';
+
+import '../Forms/SingInForm.dart';
 
 class SignInPage extends StatelessWidget {
   @override

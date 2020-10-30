@@ -1,15 +1,11 @@
-import 'package:flutter/material.dart';
-
-class User {
+class MyUser {
   final String name;
   final String uid;
   final String email;
-  final String password;
 
-  User({
+  MyUser({
     this.email,
     this.uid,
     this.name,
-    this.password,
   });
 }

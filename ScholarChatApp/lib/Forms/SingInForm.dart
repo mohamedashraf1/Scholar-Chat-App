@@ -1,4 +1,6 @@
+import 'package:ScholarChatApp/Screens/signupPage.dart';
 import 'package:flutter/material.dart';
+import '../services/auth.dart';
 
 class SignInForm extends StatefulWidget {
   @override
@@ -6,14 +8,18 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  String _email;
+  String _password;
 
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-  void _submit() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+  final AuthService _authService = AuthService();
+  Future _submit() async {
+    if (_formKey.currentState.validate()) {
+      await _authService.signIn(
+        email: _email,
+        password: _password,
+      );
     }
   }
 
@@ -44,7 +50,7 @@ class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -63,7 +69,7 @@ class _SignInFormState extends State<SignInForm> {
             style: TextStyle(color: Theme.of(context).primaryColor),
             validator: (value) =>
                 !value.contains("@") ? "Not a valid Email" : null,
-            controller: _emailController,
+            onChanged: (value) => _email = value,
           ),
           const SizedBox(
             height: 10,
@@ -74,7 +80,7 @@ class _SignInFormState extends State<SignInForm> {
             obscureText: true,
             validator: (value) =>
                 value.length < 8 ? "You need at least 8 Charachters" : null,
-            controller: _passwordController,
+            onChanged: (value) => _password = value,
           ),
           const SizedBox(
             height: 10,
@@ -87,7 +93,9 @@ class _SignInFormState extends State<SignInForm> {
               ),
               color: Theme.of(context).primaryColor,
               textColor: Theme.of(context).accentColor,
-              onPressed: _submit,
+              onPressed: () async {
+                await _submit();
+              },
               child: Text(
                 "Sign In",
                 style: TextStyle(
@@ -115,7 +123,13 @@ class _SignInFormState extends State<SignInForm> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, '/second');
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return Scaffold(
+                          body: SignUpPage(),
+                        );
+                      },
+                    ));
                   },
                 ),
               ],
