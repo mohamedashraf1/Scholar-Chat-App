@@ -23,6 +23,7 @@ class _SignUpFormState extends State<SignUpForm> {
       dynamic result = await _authService.signUp(
         email: _email,
         password: _password,
+        name: _name,
       );
       if (result == null) {
         print("error");
