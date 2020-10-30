@@ -53,9 +53,7 @@ class _ScholarChatAppState extends State<ScholarChatApp> {
             ),
           )
         : MaterialApp(
-            home: Center(
-              child: Text("wait!"),
-            ),
+            home: Scaffold(),
           );
   }
 }
