@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 
+import '../services/auth.dart';
+
 class SignUpForm extends StatefulWidget {
   @override
   _SignUpFormState createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final _emailController = TextEditingController();
-  final _nameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  String _email;
+  String _name;
+  String _password;
 
   final formKey = GlobalKey<FormState>();
 
-  void _submit() {
+  AuthService _authService = AuthService();
+
+  var isSignedUp = false;
+
+  Future _submit() async {
     if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+      dynamic result = await _authService.signUp(
+        email: _email,
+        password: _password,
+      );
+      if (result == null) {
+        print("error");
+      } else
+        isSignedUp = true;
     }
   }
 
@@ -63,7 +76,7 @@ class _SignUpFormState extends State<SignUpForm> {
             decoration: decorate("Name"),
             style: TextStyle(color: Theme.of(context).primaryColor),
             validator: (value) => value == "" ? "You must enter a name" : null,
-            controller: _nameController,
+            onChanged: (value) => _name = value,
           ),
           const SizedBox(
             height: 10,
@@ -73,7 +86,7 @@ class _SignUpFormState extends State<SignUpForm> {
             style: TextStyle(color: Theme.of(context).primaryColor),
             validator: (value) =>
                 !value.contains("@") ? "Not a valid Email" : null,
-            controller: _emailController,
+            onChanged: (value) => _email = value,
           ),
           const SizedBox(
             height: 10,
@@ -84,7 +97,7 @@ class _SignUpFormState extends State<SignUpForm> {
             obscureText: true,
             validator: (value) =>
                 value.length < 8 ? "You need at least 8 Charachters" : null,
-            controller: _passwordController,
+            onChanged: (value) => _password = value,
           ),
           const SizedBox(
             height: 10,
@@ -97,7 +110,10 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
               color: Theme.of(context).primaryColor,
               textColor: Theme.of(context).accentColor,
-              onPressed: _submit,
+              onPressed: () async {
+                await _submit();
+                if (isSignedUp) Navigator.pop(context);
+              },
               child: Text(
                 "Sign Up",
                 style: TextStyle(
