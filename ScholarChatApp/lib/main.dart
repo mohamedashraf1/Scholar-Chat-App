@@ -53,7 +53,15 @@ class _ScholarChatAppState extends State<ScholarChatApp> {
             ),
           )
         : MaterialApp(
-            home: Scaffold(),
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).accentColor),
+                  backgroundColor: Colors.red,
+                ),
+              ),
+            ),
           );
   }
 }
