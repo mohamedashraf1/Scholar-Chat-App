@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/message.dart';
 
 class MessageList extends StatefulWidget {
   @override
@@ -10,6 +11,24 @@ class MessageList extends StatefulWidget {
 class _MessageListState extends State<MessageList> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final messages = Provider.of<List<Message>>(context);
+    // if (messages != null) {
+    //   messages.sort((a, b) {
+    //     a.time.compareTo(b.time);
+    //   });
+    // }
+
+    return messages == null
+        ? Container()
+        : ListView.builder(
+            itemCount: messages.length,
+            itemBuilder: (context, index) {
+              return Message(
+                content: messages[index].content,
+                senderID: messages[index].senderID,
+                time: messages[index].time,
+              );
+            },
+          );
   }
 }

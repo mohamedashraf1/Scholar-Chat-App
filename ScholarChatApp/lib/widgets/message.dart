@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Message extends StatelessWidget {
+class Message extends StatefulWidget {
   final String senderID;
   final String content;
   final String time;
@@ -8,7 +9,37 @@ class Message extends StatelessWidget {
   Message({this.senderID, this.content, this.time});
 
   @override
+  _MessageState createState() => _MessageState();
+}
+
+void tryi() {}
+
+class _MessageState extends State<Message> {
+  String name;
+
+  Future<String> getName() async {
+    CollectionReference users = FirebaseFirestore.instance.collection('Users');
+    final snapshot = await users.doc(widget.senderID).get().then((value) {
+      if (mounted)
+        setState(() {
+          name = value.data()['name'];
+        });
+    });
+    try {
+      if (snapshot != null)
+        return snapshot.data()['name'];
+      else
+        return null;
+    } catch (e) {
+      print("************");
+      print(e);
+      return null;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    getName();
     return Container(
       constraints: BoxConstraints(
         maxWidth: 250,
@@ -29,7 +60,7 @@ class Message extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "$senderID",
+              name == null ? "fetching" : "$name",
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
@@ -38,7 +69,7 @@ class Message extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              "$content",
+              "${widget.content}",
               style: TextStyle(
                 fontSize: 13,
                 color: Colors.black,
@@ -48,7 +79,7 @@ class Message extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Text(
-                "$time",
+                "${widget.time}",
                 style: TextStyle(
                   fontSize: 10,
                   color: Colors.grey,

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../widgets/message.dart';
+
 class DatabaseService {
   final String uid;
 
@@ -20,8 +22,18 @@ class DatabaseService {
     });
   }
 
-  Stream<QuerySnapshot> get theFullMessages {
-    return messages.snapshots();
+  List<Message> _messageListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Message(
+        content: doc.data()['content'] ?? '',
+        senderID: doc.data()['SenderID'] ?? '',
+        time: doc.data()['time'] ?? '',
+      );
+    }).toList();
+  }
+
+  Stream<List<Message>> get theFullMessages {
+    return messages.snapshots().map(_messageListFromSnapshot);
   }
 
   Future<void> addNewMessage({String id, String content, String time}) {
