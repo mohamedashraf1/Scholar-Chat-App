@@ -4,15 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Message extends StatefulWidget {
   final String senderID;
   final String content;
-  final String time;
+  final Timestamp time;
 
   Message({this.senderID, this.content, this.time});
 
   @override
   _MessageState createState() => _MessageState();
 }
-
-void tryi() {}
 
 class _MessageState extends State<Message> {
   String name;
@@ -33,7 +31,6 @@ class _MessageState extends State<Message> {
     } catch (e) {
       print("************");
       print(e);
-      return null;
     }
   }
 
@@ -79,7 +76,7 @@ class _MessageState extends State<Message> {
             Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Text(
-                "${widget.time}",
+                "${widget.time.toDate().toString()}",
                 style: TextStyle(
                   fontSize: 10,
                   color: Colors.grey,

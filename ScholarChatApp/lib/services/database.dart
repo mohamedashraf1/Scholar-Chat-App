@@ -10,7 +10,7 @@ class DatabaseService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final CollectionReference messages =
-      FirebaseFirestore.instance.collection("Messages");
+      FirebaseFirestore.instance.collection("MyMessages");
 
   //collection reference
   final CollectionReference users =
@@ -36,7 +36,7 @@ class DatabaseService {
     return messages.snapshots().map(_messageListFromSnapshot);
   }
 
-  Future<void> addNewMessage({String id, String content, String time}) {
+  Future<void> addNewMessage({String id, String content, Timestamp time}) {
     try {
       print("in");
       return messages

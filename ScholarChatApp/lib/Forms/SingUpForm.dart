@@ -20,6 +20,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   Future _submit() async {
     if (formKey.currentState.validate()) {
+      print("innnn");
       dynamic result = await _authService.signUp(
         email: _email,
         password: _password,
