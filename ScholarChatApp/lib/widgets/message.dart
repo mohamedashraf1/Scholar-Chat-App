@@ -31,6 +31,7 @@ class _MessageState extends State<Message> {
     } catch (e) {
       print("************");
       print(e);
+      return null;
     }
   }
 
