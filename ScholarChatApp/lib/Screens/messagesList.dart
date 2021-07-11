@@ -13,9 +13,7 @@ class _MessageListState extends State<MessageList> {
   Widget build(BuildContext context) {
     final messages = Provider.of<List<Message>>(context);
 
-    messages.sort((a, b) {
-      a.time.compareTo(b.time);
-    });
+    messages.sort((a, b) => a.time.compareTo(b.time));
 
     return messages == null
         ? Container()
